@@ -1,6 +1,6 @@
 {
   "name": "resource-auditer",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Tool for checking how many resources from third parties are requested",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
