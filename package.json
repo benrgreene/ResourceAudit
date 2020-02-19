@@ -1,12 +1,12 @@
 {
-  "name": "resource-checker",
+  "name": "resource-auditer",
   "version": "1.0.0",
   "description": "Tool for checking how many resources from third parties are requested",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
-    "check-resources": "./src/index.js"
+    "audit-site": "./src/index.js"
   },
   "main": "src/index.js",
   "author": "Ben Greene <benrgreene@gmail.com>",
