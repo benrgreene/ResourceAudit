@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Site Resource Audit - __URL__</title>
+  </head>
+  <body>
+    <header>
+      <h1>Site Resource Audit</h1>
+      <p>Prepared for __URL__ on __TIME__</p>
+      <p>Total Weight of Resources: __WEIGHT__</p>
+    </header>
+    <div class="table">
+      __CONTENT__
+    </div>
+    <style>
+      .resource {
+        padding-left: 80px;
+      }
+      .resource__grid {
+        width: 900px;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+      }
+      .resource__name {
+        margin-bottom: 0;
+        grid-column: 1 / span 4;
+        white-space: nowrap;
+      }
+      p {
+        margin: 10px 0;
+      }
+      details {
+        margin-top: 80px;
+      }
+      summary::-webkit-details-marker {
+        display: none;
+      }
+    </style>
+  </body>
+</html>

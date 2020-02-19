@@ -1,0 +1,27 @@
+{
+  "name": "resource-checker",
+  "version": "1.0.0",
+  "description": "Tool for checking how many resources from third parties are requested",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "check-resources": "./src/index.js"
+  },
+  "main": "src/index.js",
+  "author": "Ben Greene <benrgreene@gmail.com>",
+  "dependencies": {
+    "arg": "^4.1.0",
+    "colors": "^1.3.3",
+    "esm": "^3.2.25",
+    "file-system": "^2.2.2",
+    "lodash": "^4.17.15",
+    "node-fetch": "^2.6.0",
+    "path": "^0.12.7",
+    "prettier": "^1.18.2",
+    "webpagetest": "^0.3.9"
+  },
+  "peerDependencies": {
+    "yarn": "^1.17.3"
+  }
+}
