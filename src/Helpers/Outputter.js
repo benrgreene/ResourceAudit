@@ -39,7 +39,7 @@ const buildResource = (resource) => {
 const outputFile = (data, url) => {
   const time = getTime();
   const pageWeight = Processor.getFullSizeOfHosts(data) / 1000;
-  const fileName = `./${url}-${time}.html`;
+  const fileName = `./${url.replace(/\//g, '-')}-${time}.html`;
   // get our template file
   const templateFile = `${__dirname}/../Templates/output.html`;
   const template = fileSystem.fs.readFileSync(templateFile, {
