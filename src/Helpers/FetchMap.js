@@ -42,7 +42,7 @@ const sortData = (data) => {
     }, 0);
     // sort the resources
     data[key].resources.sort((a, b) => {
-      return a.size - b.size;
+      return b.size - a.size;
     });
   });
 };

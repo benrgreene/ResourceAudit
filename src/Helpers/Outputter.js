@@ -12,16 +12,17 @@ const getTime = () => {
 };
 
 /**
- * Function description
+ * Builds output for a single resource from a host
  *
- * @param {Type} name: parameter description
+ * @param {Object} resource: the individual resource to display
+ * @param {Object} host: the host the resource is for
  *
- * @return {Type}: return description
+ * @return {Node}: the element for the resource to display
  */
-const buildResource = (resource) => {
+const buildResource = (resource, host) => {
   const resourceParamIndex = resource.url.indexOf('?') >= 0 ? resource.url.indexOf('?') : resource.url.length;
   return `<div class="resource">
-  <h3 class="resource__name">${resource.url.substring(0, resourceParamIndex)}</h3>
+  <a href="https://${host.host}${resource.url}"><h3 class="resource__name">${resource.url.substring(0, resourceParamIndex)}</h3></a>
   <div class="resource__grid">
     <p class="type">Resource Type: ${resource.contentType}</p>
     <p class="size">Resource Size: ${resource.size / 1000}kB</p>
@@ -49,7 +50,7 @@ const outputFile = (data, url) => {
   const content = data.reduce((fileContent, host) => {
     const hostSize = host.totalResources / 1000;
     const hostContent = host.resources.reduce((hostOutput, resource) => {
-      return `${hostOutput}${buildResource(resource, pageWeight)}`;
+      return `${hostOutput}${buildResource(resource, host)}`;
     }, '');
     return `${fileContent}
       <details>

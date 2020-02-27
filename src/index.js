@@ -20,10 +20,12 @@ const processArgs = (rawArgs) => {
       '--url': String,
       '--api-key': String,
       '--test-input': Boolean,
+      '--test-images': Boolean,
       // aliases
       '-u': '--url',
       '-a': '--api-key',
       '-t': '--test-input',
+      '-i': '--test-images',
     },
     {
       argv: rawArgs.slice(2),
@@ -34,6 +36,7 @@ const processArgs = (rawArgs) => {
     url: args['--url'] || false,
     api: args['--api-key'] || false,
     test: args['--test-input'] || false,
+    images: args['--test-images'] || false,
   }
 };
 
@@ -48,6 +51,8 @@ export const runTool = (rawArgs) => {
 
   if (args.test) {
     Tester.testInput();
+  } else if (args.images) {
+
   } else if (args.api) {
     Settings.setAPIKey(args.api);
   } else {
