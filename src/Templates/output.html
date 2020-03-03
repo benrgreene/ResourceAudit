@@ -9,10 +9,44 @@
       <p>Prepared for __URL__ on __TIME__</p>
       <p>Total Weight of Resources: __WEIGHT__</p>
     </header>
-    <div class="table">
+    <div class="triggers">
+      <div class="trigger" data-trigger="data-resources">Resources</div>
+      <div class="trigger" data-trigger="data-images">Images</div>
+    </div>
+    <div class="table" data-resources>
       __CONTENT__
     </div>
+    <data class="hidden" data-images>
+      __IMAGES__
+    </data>
+    <script type="text/javascript">
+      const cache = {};
+
+      const clickTab = (event) => {
+        const targetSelector = document.querySelector(`[${event.target.getAttribute('data-trigger')}]`);
+        Object.values(cache).forEach((element) => {
+          if (element === targetSelector) {
+            element.classList.remove('hidden');
+          } else {
+            element.classList.add('hidden');
+          }
+        });
+      };
+
+      document.addEventListener('DOMContentLoaded', () => {
+        cache.resources = document.querySelector('[data-resources]');
+        cache.images = document.querySelector('[data-images]');
+
+        const triggers = document.querySelectorAll('[data-trigger]');
+        triggers.forEach((trigger) => {
+          trigger.addEventListener('click', clickTab);
+        });
+      });
+    </script>
     <style>
+      .hidden {
+        display: none;
+      }
       .resource {
         padding-left: 80px;
       }

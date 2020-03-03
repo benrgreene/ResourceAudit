@@ -5,7 +5,6 @@ import Settings from './Helpers/Settings';
 
 import Tester from './tester.js';
 
-
 /**
  * Processes command line arguments passed to the tool
  *
@@ -51,8 +50,6 @@ export const runTool = (rawArgs) => {
 
   if (args.test) {
     Tester.testInput();
-  } else if (args.images) {
-
   } else if (args.api) {
     Settings.setAPIKey(args.api);
   } else {

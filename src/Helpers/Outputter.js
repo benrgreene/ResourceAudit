@@ -1,6 +1,8 @@
 import fileSystem from 'file-system';
 import Processor from './Process';
 
+import Cookies from './Cookies.js';
+
 /**
  * Get the time as a string
  *
@@ -33,6 +35,24 @@ const buildResource = (resource, host) => {
 };
 
 /**
+ * Builds the image markup to display in the audit
+ *
+ * @return {String}: markup to display
+ */
+const buildImageMarkup = () => {
+  const imageData = Cookies.getData(Cookies.storageSettings.imageCookie);
+  return imageData.reduce((markup, image) => {
+    const endIndex = image.url.includes('?') ? image.url.indexOf('?') : image.url.length;
+    return `${markup}<div class="image-entry">
+  <a href="${image.url}"><h2 class="image-entry__name">${image.url.substring(0, endIndex)}</h2></a>
+  <p>Natural Size / Size Ratio: ${Math.round(image.widthRatio * 100)}%</p>
+  <p>Image Width: ${image.naturalWidth}px</p>
+  <p>Image Width Space: ${image.width}px</p>
+</div>`;
+  }, '');
+};
+
+/**
  * Outputs the data for a speed test
  *
  * @param {Array} data: the data to output
@@ -61,10 +81,13 @@ const outputFile = (data, url) => {
         ${hostContent}
       </details>`;
   }, '');
+  // grab image markup
+  const imageMarkup = buildImageMarkup();
   // make output replacements
   const fileOutput = template.replace(/__TIME__/g, time)
                              .replace(/__URL__/g, url)
                              .replace(/__CONTENT__/g, content)
+                             .replace(/__IMAGES__/g, imageMarkup)
                              .replace(/__WEIGHT__/g, `${pageWeight}kB`);
   fileSystem.fs.writeFileSync(fileName, fileOutput);
   console.log(`Audit saved to "${fileName}"`);

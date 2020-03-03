@@ -8,8 +8,8 @@ const getFullSizeOfHosts = (data) => {
 };
 
 const process = (data, url) => {
-  FetchMap.fetchMap(data.id, url);
   Images.auditImages(data, url);
+  FetchMap.fetchMap(data.id, url);
 };
 
 export default {
