@@ -61,12 +61,21 @@ const sortHosts = (data) => {
 const fetchMap = (ID, url) => {
   const URLToFetch = `http://requestmap.webperf.tools/download/${ID}/?server=webpagetest.org&download=0&format=json`;
   fetch(URLToFetch)
-    .then((blob) => blob.json())
+    .then((blob) => {
+      if (!blob.ok) {
+        throw Error(blob.statusText);
+      }
+      return blob.json();
+    })
     .then((rawMapData) => {
       const mapData = cleanData(rawMapData);
       sortData(mapData);
       const sortedData = sortHosts(mapData);
       Outputter.outputFile(sortedData, url);
+    })
+    .catch(() => {
+      console.log('waiting for "requestmap" to generate report...')
+      setTimeout(() => { fetchMap(ID, url); }, 10000);
     });
 };
 
