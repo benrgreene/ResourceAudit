@@ -10,7 +10,7 @@
       <p>Total Weight of Resources: __WEIGHT__</p>
     </header>
     <div class="triggers">
-      <div class="trigger" data-trigger="data-resources">Resources</div>
+      <div class="trigger active" data-trigger="data-resources">Resources</div>
       <div class="trigger" data-trigger="data-images">Images</div>
     </div>
     <div class="table" data-resources>
@@ -22,8 +22,20 @@
     <script type="text/javascript">
       const cache = {};
 
+      const setTriggerClasses = (triggerClicked) => {
+        const targetSelectors = document.querySelectorAll(`[data-trigger]`);
+        targetSelectors.forEach((trigger) => {
+          if (trigger === triggerClicked) {
+            trigger.classList.add('active');
+          } else {
+            trigger.classList.remove('active');
+          }
+        });
+      };
+
       const clickTab = (event) => {
         const targetSelector = document.querySelector(`[${event.target.getAttribute('data-trigger')}]`);
+        setTriggerClasses(event.target);
         Object.values(cache).forEach((element) => {
           if (element === targetSelector) {
             element.classList.remove('hidden');
@@ -44,8 +56,30 @@
       });
     </script>
     <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
       .hidden {
         display: none;
+      }
+      .triggers {
+        margin: 80px 0;
+        display: flex;
+      }
+      .trigger {
+        padding: 20px;
+        flex-grow: 1;
+        text-align: center;
+        background-color: #F8F8F8;
+        color: #333;
+        cursor: pointer;
+        transition: background-color .3s, color.3s;
+      }
+      .trigger.active {
+        background-color: #333;
+        color: #F8F8F8;
       }
       .resource {
         padding-left: 80px;
@@ -60,11 +94,19 @@
         grid-column: 1 / span 4;
         white-space: nowrap;
       }
+      .image-entry,
+      details {
+        margin-left: 20px
+      }
+      details + details {
+        margin-top: 60px
+      }
+      header {
+        margin-top: 20px;
+        text-align: center;
+      }
       p {
         margin: 10px 0;
-      }
-      details {
-        margin-top: 80px;
       }
       summary::-webkit-details-marker {
         display: none;

@@ -1,7 +1,11 @@
 import fileSystem from 'file-system';
-import Processor from './Process';
-
 import Cookies from './Cookies.js';
+
+const getFullSizeOfHosts = (data) => {
+  return data.reduce((totalSize, host) => {
+    return totalSize + host.totalResources;
+  }, 0);
+};
 
 /**
  * Get the time as a string
@@ -59,7 +63,7 @@ const buildImageMarkup = () => {
  */
 const outputFile = (data, url) => {
   const time = getTime();
-  const pageWeight = Processor.getFullSizeOfHosts(data) / 1000;
+  const pageWeight = getFullSizeOfHosts(data) / 1000;
   const fileName = `./${url.replace(/\//g, '-')}-${time}.html`;
   // get our template file
   const templateFile = `${__dirname}/../Templates/output.html`;
